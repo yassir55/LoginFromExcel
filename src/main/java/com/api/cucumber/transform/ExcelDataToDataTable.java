@@ -39,15 +39,15 @@ public class ExcelDataToDataTable extends Transformer<DataTable> {
 	private DataTable getDataTable(List<DataTableRow> dataTableRows) {
 		ParameterInfo parameterInfo = new ParameterInfo(null, null, null, null);
 	    TableConverter tableConverter = new TableConverter(new LocalizedXStreams(Thread.currentThread().getContextClassLoader()).get(Locale.getDefault()), parameterInfo);
-		
+
 		DataTable table = new DataTable(dataTableRows, tableConverter);
 		return table;
 	}
 
-	private List<DataTableRow> getDataTableRows(List<List<String>> excelData) {
+	private List<DataTableRow> getDataTableRows(List<List< String>> excelData) {
 		List<DataTableRow> dataTableRows = new LinkedList<>();
 		int line = 1;
-		
+
 		for(List<String> list : excelData){
 			Comment commnet = new Comment("", line);
 			DataTableRow tableRow = new DataTableRow(Arrays.asList(commnet), list, line++);

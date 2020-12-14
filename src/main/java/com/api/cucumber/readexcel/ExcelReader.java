@@ -24,33 +24,6 @@ public class ExcelReader {
 		this.sheetName = excelReaderBuilder.sheetName;
 	}
 
-	public static class ExcelReaderBuilder {
-
-		private String fileName;
-		private String sheetName;
-		private int sheetIndex;
-
-		public ExcelReaderBuilder setFileLocation(String location) {
-			this.fileName = location;
-			return this;
-		}
-
-		public ExcelReaderBuilder setSheet(String sheetName) {
-			this.sheetName = sheetName;
-			return this;
-		}
-
-		public ExcelReaderBuilder setSheet(int index) {
-			this.sheetIndex = index;
-			return this;
-		}
-
-		public ExcelReader build() {
-			return new ExcelReader(this);
-		}
-
-	}
-
 	private XSSFWorkbook getWorkBook(String filePath) throws InvalidFormatException, IOException {
 		return new XSSFWorkbook(new File(filePath));
 	}
@@ -68,7 +41,6 @@ public class ExcelReader {
 	public List<List<String>> getSheetData() throws IOException{
 		XSSFSheet sheet;
 		List<List<String>> outerList = new LinkedList<>();
-		
 		try {
 			sheet = getWorkBookSheet(fileName, sheetName);
 			outerList = getSheetData(sheet);
@@ -136,5 +108,34 @@ public class ExcelReader {
 		default:
 			throw new IllegalArgumentException("Cannot read the column : " + j);
 		}
+	}
+
+
+
+	public static class ExcelReaderBuilder {
+
+		private String fileName;
+		private String sheetName;
+		private int sheetIndex;
+
+		public ExcelReaderBuilder setFileLocation(String fileLocation) {
+			this.fileName = fileLocation;
+			return this;
+		}
+
+		public ExcelReaderBuilder setSheet(String sheetName) {
+			this.sheetName = sheetName;
+			return this;
+		}
+
+		public ExcelReaderBuilder setSheet(int index) {
+			this.sheetIndex = index;
+			return this;
+		}
+
+		public ExcelReader build() {
+			return new ExcelReader(this);
+		}
+
 	}
 }
